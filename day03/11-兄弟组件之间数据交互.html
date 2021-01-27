@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>父组件</div>
+        <div>
+            <button @click='handle'>销毁事件</button>
+        </div>
+        <test-tom></test-tom>
+        <test-jerry></test-jerry>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // Step1 创建 Vue 实例，充当事件中心去使用
+        const hub = new Vue();
+
+        Vue.component('test-tom', {
+            data: function () {
+                return {
+                    num: 0
+                }
+            },
+            template: `
+                <div>
+                    <div>TOM:{{num}}</div>
+                    <div>
+                        <button @click='handle'>点击1</button>
+                    </div>
+                </div>
+            `,
+            methods: {
+                handle: function () {
+                    // #Ste2 通过 hub.$emit 去触发事件并传值
+                    // 这句话写到了函数里面
+                    hub.$emit('jerry-event', 2, 4);
+                }
+            },
+            mounted: function () {
+                // 监听事件
+                hub.$on('tom-event', (val) => {
+                    this.num += val;
+                });
+            }
+        });
+        Vue.component('test-jerry', {
+            data: function () {
+                return {
+                    num: 0
+                }
+            },
+            template: `
+                <div>
+                    <div>JERRY:{{num}}</div>
+                    <div>
+                        <button @click='handle'>点击2</button>
+                    </div>
+                </div>
+            `,
+            methods: {
+                handle: function () {
+                    // 触发兄弟组件的事件
+                    hub.$emit('tom-event', 1);
+                }
+            },
+            mounted: function () {
+                // Step3: 通过hub.$on 去监听事件，并接收值
+                hub.$on('jerry-event', (val, val2) => {
+                    console.log(val2); // 4
+                    this.num += val;
+                });
+            }
+        });
+        var vm = new Vue({
+            el: '#app',
+            methods: {
+                handle: function () {
+                    hub.$off('tom-event');
+                    hub.$off('jerry-event');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

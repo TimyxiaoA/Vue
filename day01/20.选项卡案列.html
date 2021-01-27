@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.active {
+				color: red;
+			}
+
+			.tab div {
+				display: none;
+			}
+
+			.tab .current {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="tab">
+				<!--  tab栏  -->
+				<ul>
+					<!--  
+                1、绑定key的作用 提高Vue的性能 
+                2、 key 需要是唯一的标识 所以需要使用 id，也可以使用 index，index 也是唯一的 
+                3、 item 是数组中对应的每一项  
+                4、 index 是每一项的索引
+            -->
+					<!-- !这里的 click 事件保存了 index 值,为什么？通过函数吗? -->
+					<li :key="item.id" v-for="(item,index) in list" :class="currentIndex===index ? 'active':''" @click="change(index)">{{item.title}}</li>
+					<!-- <li class="">orange</li>
+					<li class="">lemon</li> -->
+				</ul>
+				<!--  对应显示的图片 -->
+				<div :key="item.id" v-for="(item,index) in list" :class="currentIndex===index ? 'current':''" @click="change(index)">
+					<img :src="item.path" />
+				</div>
+				<!-- <div class=""><img src="img/orange.png" /></div>
+				<div class=""><img src="img/lemon.png" /></div> -->
+			</div>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					list: [
+						{
+							id: 1,
+							title: 'apple',
+							path: 'img/apple.png'
+						},
+						{
+							id: 2,
+							title: 'orange',
+							path: 'img/orange.png'
+						},
+						{
+							id: 3,
+							title: 'lemon',
+							path: 'img/lemon.png'
+						}
+					],
+					currentIndex: 0
+				},
+				methods: {
+					change(index) {
+						this.currentIndex = index;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

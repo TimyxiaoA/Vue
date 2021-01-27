@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+    <div id="app">
+        <p>{{name}}</p>
+        <hello-world title="尼古拉斯" :full-name="name" firstName="elser"></hello-world>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 定义组件的时候使用驼峰，使用的时候使用短横线
+        // Vue.component('HelloWorld', {
+
+        // 1. 使用的时候通过属性传递值
+        // 2. 定义的时候通过 props 接收值
+
+        // 3. 在普通的 HTML 里面，传值时候如果使用的是短横线，接收的时候要使用驼峰
+        // 4. 在普通的 HTML 里面，传值时候（不区分大小写）如果使用的是驼峰，接收的时候要全小写
+
+        // 5. 在模板里面，传值的时候区分大小写，如果说使用的是驼峰，那么接收的时候还是要使用驼峰
+        Vue.component('hello-world', {
+            props: ['title', 'fullName', 'firstname'],
+            data() {
+                return {
+                    msg: 'hello world'
+                }
+            },
+            template: `<div>{{msg}} -----{{title}}------{{fullName}}---------{{firstname}}---------<test testName="测试名字" aa-bb="aabb"></test></div>`
+        });
+
+
+        Vue.component('test', {
+            props: ['testName', 'aaBb'],
+            template: `<span>{{testName}}-----{{aaBb}}</span>`
+        });
+        
+        const vm = new Vue({
+            el: '#app',
+            name: 'App',
+            data: {
+                name: 'ifer'
+            }
+        });
+    </script>
+</body>
+
+</html>

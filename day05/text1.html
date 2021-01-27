@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./lib/vue.js"></script>
+		<script src="./lib/vue-router_3.0.2.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/home">首页</router-link>
+			<router-link to="/goods">商品页</router-link>
+			<router-view></router-view>
+		</div>
+		<script>
+			const Home = {
+				template: `
+          <div>
+              <h2>首页的内容</h2>
+          </div>`
+			};
+			const Goods = {
+				template: `
+          <div>
+              <h2>商品页的内容</h2>
+              <a href="javascript:;" @click="$router.push({path:'/goods/g1',query:{id:1,name:'zs'}})">商品1</a>
+              <router-link to="/goods/g2">商品2</router-link>
+              <router-view></router-view>
+          </div>`
+			};
+			const G1 = {
+				template: `
+          <div>
+              <h5>商品1的内容--{{$route.query.id}}--{{$route.query.name}}</h5>
+              <button @click="$router.back()">返回</button>
+          </div>`
+			};
+			const G2 = {
+				template: `
+          <div>
+              商品2的内容
+          </div>`
+			};
+			const router = new VueRouter({
+				routes: [
+					{ path: '/', redirect: '/home' },
+					{
+						path: '/home',
+						component: Home
+					},
+					{
+						path: '/goods',
+						component: Goods,
+						children: [
+							{
+								path: 'g1',
+								component: G1
+							},
+							{
+								path: 'g2',
+								component: G2
+							}
+						]
+					}
+				]
+			});
+			const vm = new Vue({
+				el: '#app',
+				router
+			});
+		</script>
+	</body>
+</html>

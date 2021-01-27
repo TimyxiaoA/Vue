@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p></p>
+    <input type="text">
+    <script>
+    const obj = {
+        _temp: ''
+    };
+    
+    // 这样添加，没有办法劫持 msg 数据的赋值和读取
+    // obj.msg = 18;
+
+    Object.defineProperty(obj, 'msg', {
+        // obj.msg 获取的时候会触发 get 方法
+        get() {
+            console.log('msg 被读了');
+            return this._temp;
+        },
+        // obj.msg 赋值的时候，会触发 set 方法，set 方法里面的第一个参数就是等号右边的值 obj.msg = 'xxx'
+        set(newValue) {
+            console.log('msg 被写了');
+
+            // 每次写入数据的时候，都会把最终的结果给 obj._temp
+            // 当你用 obj.msg 获取数据的时候，就会触发 get，而 get 方法里面返回的就是 obj._temp，所以说就能实现视图的变化影响 obj.msg 的变化了
+            obj._temp = newValue;
+
+
+            // 做一个数据影响视图的操作
+            // M => V
+            oP.innerHTML = newValue;
+            oInput.value = newValue;
+        }
+    });
+
+    // obj.msg; // 这叫做读
+    // obj.msg = 'xxx'; // 这叫做写
+
+    const oP = document.querySelector('p');
+    const oInput = document.querySelector('input');
+
+    // 当在 input 框中输入内容的时候会触发 oninput
+    // #1 V => M
+    oInput.oninput = function(e) {
+        // console.log(e.target.value);
+
+        // 这一个是核心，
+        obj.msg = e.target.value;
+    };
+    </script>
+</body>
+</html>

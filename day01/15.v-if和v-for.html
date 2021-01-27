@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- v 代表 对象的 value -->
+			<!-- k 代表对象的键 -->
+			<!-- i 代表索引 -->
+			<div v-if="v==13" v-for="(v,k,i) in obj" :key="k">{{v + '---' + k + '---' + i}}</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					obj: {
+						uname: 'zhangsan',
+						age: 13,
+						gender: 'female'
+					}
+				}
+      });
+		</script>
+	</body>
+</html>

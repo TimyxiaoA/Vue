@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./lib/vue.js"></script>
+		<script src="./lib/vue-router_3.0.2.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--TODO: 1.指定路由地址 -->
+			<router-link to="/user/1">User1</router-link>
+			<router-link to="/user/2">User2</router-link>
+			<router-link to="/user/3">User3</router-link>
+			<router-link to="/register">Register</router-link>
+			<!--TODO: 2.指定路由占位符,当路由匹配时,显示组件的地方 -->
+			<router-view></router-view>
+		</div>
+
+		<script>
+			const User = {
+				props: ['id'],
+				template: `<h1>User 组件--用户id为:{{id}}</h1>`
+			};
+			const Register = {
+				template: `<h1>Register 组件</h1>`
+			};
+			//TODO: 3.配置路由规则
+			const router = new VueRouter({
+				routes: [
+					// 当 router-link 中的 to 属性值 和 path 匹配后,就会展示对应的 component 到  2 处
+					{ path: '/user/:id', component: User, props: true },
+					{ path: '/register', component: Register }
+				]
+			});
+			const vm = new Vue({
+				el: '#app',
+				//TODO: 4.挂载路由实例
+				router
+			});
+		</script>
+	</body>
+</html>

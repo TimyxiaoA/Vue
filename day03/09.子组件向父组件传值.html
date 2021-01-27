@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<div :style="{fontSize:fontSize+'px'}">我是父组件的文字</div>
+			<menu-item @add="handle()" :parr="parr"></menu-item>
+		</div>
+		<script src="js/vue.js"></script>
+		<script>
+			Vue.component('menu-item', {
+				props: ['parr'],
+				template: `
+          <div>
+            <ul>
+              <li :key="index" v-for="item,index in parr">{{item}}</li>
+            </ul>
+            <button @click="$emit('add')">扩大父组件中的字体大小</button>
+          </div>
+        `
+			});
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					fontSize: 10,
+					parr: ['lemon', 'apple', 'banana']
+				},
+				methods: {
+					handle: function () {
+						this.fontSize += 5;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

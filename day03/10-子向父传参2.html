@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<div :style='{fontSize: fontSize + "px"}'>{{pmsg}}</div>
+			<!-- 1. 这里的 $event 代表 $emit 的第二个参数  不加括号的传参-->
+			<menu-item :parr="parr" @enlarge-text="handle"></menu-item>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('menu-item', {
+				props: ['parr'],
+				// 如果在事件触发的地方写 $event 就代表事件对象
+				template: `
+                <div>
+                    <ul>
+                        <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+                    </ul>
+                    <button @click='$emit("enlarge-text", 5, $event, 9)'>扩大父组件中字体大小5</button>
+                    <button @click='$emit("enlarge-text", 10, $event, 8)'>扩大父组件中字体大小10</button>
+                </div>
+            `
+			});
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					pmsg: '父组件中内容',
+					parr: ['apple', 'orange', 'banana'],
+					fontSize: 10
+				},
+				methods: {
+					handle: function (num, e, num2) {
+						// 我就是想在这里拿到事件对象，改怎么办
+						this.fontSize += num;
+
+						console.log(num + num2);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

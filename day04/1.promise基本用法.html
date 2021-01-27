@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//<!--* Promise中接收一个函数,此函数中有两个参数,这两个参数也是函数,代表成功和失败 -->
+			const p = new Promise((resolve, reject) => {
+				setTimeout(() => {
+					if (Math.random() > 0.5) {
+						resolve('成功');
+					} else {
+						reject('失败');
+					}
+				});
+			});
+			// <!--* p.then中有两个函数代表成功和失败,通过形参可以获得实例对象中的实参 -->
+			p.then(
+				data => {
+					console.log(data);
+				},
+				err => {
+					console.log(err);
+				}
+			);
+		</script>
+	</body>
+</html>

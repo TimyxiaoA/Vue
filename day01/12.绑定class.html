@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.active {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--*支持三元表达式 返回的是字符串类名-->
+			<p v-bind:class="bBar?'active':''">hello world!</p>
+
+			<!--*支持数组三元表达式 -->
+			<p v-bind:class="[bBar?'active':'']">hello world!</p>
+
+			<!--* 支持对象写法 对象的 key 就代表类名，只有值为 true 的时候才生效 -->
+			<p v-bind:class="{active:bBar}">hello world!</p>
+
+			<!--* 支持数组套对象 或字符串,或表达式-->
+			<p v-bind:class="[{active:bBar},'aaa',true?'bbb':'']">hello world!</p>
+			<button v-on:click="handle">change</button>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					bBar: true
+				},
+				methods: {
+					handle() {
+						this.bBar = !this.bBar;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

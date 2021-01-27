@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script src="js/jquery.js"></script>
+		<script>
+			function queryData(url) {
+				return new Promise((resolve, reject) => {
+					$.ajax({
+						url,
+						success(data) {
+							resolve(data);
+						},
+						error(err) {
+							reject(err);
+						}
+					});
+				});
+			}
+			//解决层层嵌套
+			// queryData('http://localhost:3000/data')
+			// 	.then(data => {
+			// 		console.log(data);
+			// 		return queryData('http://localhost:3000/data1');
+			// 	})
+			// 	.then(data => {
+			// 		console.log(data);
+			// 		return queryData('http://localhost:3000/data2');
+			// 	})
+			// 	.then(data => {
+			// 		console.log(data);
+			// 	});
+
+			//用 async 代替
+			// async function run() {
+			// 	let r1 = await queryData('http://localhost:3000/data');
+			// 	let r2 = await queryData('http://localhost:3000/data1');
+			// 	let r3 = await queryData('http://localhost:3000/data2');
+			// 	return [r1, r2, r3];
+			// }
+			// run().then(res => console.log(res));
+
+			// 简写为
+			(async () => {
+				let r1 = await queryData('http://localhost:3000/data');
+				let r2 = await queryData('http://localhost:3000/data1');
+				let r3 = await queryData('http://localhost:3000/data2');
+				console.log(r1, r2, r3);
+			})();
+
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script src="js/axios.js"></script>
+		<script>
+			axios.defaults.baseURL = 'http://localhost:3000';
+
+			// 串行
+			/* async function test() {
+				console.time('耗时：');
+				const { data: data1 } = await axios.get('/11');
+				const { data: data2 } = await axios.get('/22');
+				console.log(data1, data2);
+				console.timeEnd('耗时：');
+			}
+			test(); // 4s */
+
+			//并行1
+			/* async function test() {
+				console.time('耗时：');
+				const p1 = axios.get('/11');
+				const p2 = axios.get('/22');
+				const { data: data1 } = await p1;
+				const { data: data2 } = await p2;
+				console.log(data1, data2);
+				console.timeEnd('耗时：');
+			}
+      test(); // 2s */
+
+			//并行2
+			async function test() {
+				console.time('耗时：');
+				//对象结构赋值
+				const [{ data: data1 }, { data: data2 }] = await Promise.all([axios.get('/11'), axios.get('/22')]);
+				console.log(data1, data2);
+				console.timeEnd('耗时：');
+			}
+			test(); // 2s
+		</script>
+	</body>
+</html>

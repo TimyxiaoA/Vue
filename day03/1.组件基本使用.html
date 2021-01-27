@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+  <div id="app">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+  </div>
+  <template id='temp1'>
+    <button @click="handle">点击了{{count}}次</button>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+      Vue.component('button-counter',{
+        data:function(){
+          return {
+          count:0
+          }
+        },
+        template:'#temp1',
+        methods: {
+          handle:function(){
+            this.count++
+          }
+        },
+      })
+      const vm=new Vue({
+        el:'#app'
+      })
+  </script>
+</body>
+
+</html>

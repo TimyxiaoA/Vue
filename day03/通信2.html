@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+    <div id="app">
+        <a-com :num="num"></a-com>
+        <b-com @change-a="changeA"></b-com>
+    </div>
+    <template id="a-com">
+        <div>
+            <button @click="$emit('change-a', 2)">改变A组件的数据</button>    
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 状态提升
+        // 需要把操作的数据提升到公共的父亲里面
+        // 一个组件通过 $emit 触发自定义事件，自定义事件的回调函数里面修改公共的父亲的数据
+        // 父亲的数据变了，使用父亲数据的另一个组件自然就变了
+        Vue.component('a-com', {
+            props: ['num'],
+            template: '<div>{{num}}</div>'
+        });
+        Vue.component('b-com', {
+            template: `#a-com`
+        });
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                num: 1
+            },
+            methods: {
+                changeA(num) {
+                    this.num += num;
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

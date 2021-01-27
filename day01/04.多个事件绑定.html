@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{num}}</div>
+			<div>
+				<!--! 绑定多个事件用对象的方式 -->
+				<button v-on="{ click: handleClick, mouseover: handleMouseover }">按钮</button>
+				<!--! 绑定一个事件,执行不同的事件处理函数 -->
+				<button v-on:click="handleClick1(),handleClick2()">按钮1</button>
+			</div>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					num: 0
+				},
+				methods: {
+					handleClick() {
+						this.num++;
+					},
+					handleMouseover() {
+						this.num++;
+					},
+					handleClick1() {
+						this.num--;
+					},
+					handleClick2() {
+						this.num--;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

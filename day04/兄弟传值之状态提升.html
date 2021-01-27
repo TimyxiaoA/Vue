@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<box-a :num1="numA" @change-b="changeB"></box-a>
+			<box-b :num2="numB" @change-a="changeA"></box-b>
+		</div>
+		<script src="js/vue.js"></script>
+		<script>
+			Vue.component('box-a', {
+				props: ['num1'],
+				template: `
+        <div>
+        <span>{{num1}}</span>
+        <button @click="$emit('change-b',5)"">a按钮</button>
+        </div>
+        `
+			});
+
+			Vue.component('box-b', {
+				props: ['num2'],
+				template: `
+        <div>
+        <span>{{num2}}</span>
+        <button @click="$emit('change-a',10)">b按钮</button>
+        </div>
+        `
+			});
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					numA: 10,
+					numB: 20
+				},
+				methods: {
+					changeA(a) {
+						this.numA += a;
+					},
+					changeB(b) {
+						this.numB += b;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

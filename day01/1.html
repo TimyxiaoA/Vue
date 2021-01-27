@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <!-- 当输入框中内容改变的时候，页面上的msg 会自动更新 -->
+        <div>
+            <input type="text" v-model='msg'>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <!--  <script src="https://cdn.jsdelivr.net/npm/vue-router@3.4.3/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.5.1/dist/vuex.min.js"></script> -->
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                msg:'hello world!'
+            }
+        });
+    </script>
+</body>
+
+</html>

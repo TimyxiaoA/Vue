@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./lib/vue.js"></script>
+		<script src="./lib/vue-router_3.0.2.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 1.指定路由地址 -->
+			<router-link to="/user">User</router-link>
+			<router-link to="/register">Register</router-link>
+			<!-- 2.指定路由占位符,当路由匹配时,显示组件的地方 -->
+			<router-view></router-view>
+		</div>
+
+		<script>
+			const User = {
+				template: `<h1>User 组件</h1>`
+			};
+			const Register = {
+				template: `<div>
+          <h1>Register 组件</h1>
+          <hr>
+          <router-link to="/register/tab1">Tab1</router-link>
+          <router-link to="/register/tab2">Tab2</router-link>
+          <router-view></router-view>
+        </div>`
+			};
+			const Tab1 = {
+				template: `
+          <h3>Tab1 组件</h3>
+        `
+			};
+			const Tab2 = {
+				template: `
+          <h3>Tab2 组件</h3>
+        `
+			};
+			// 3.配置路由规则
+			const router = new VueRouter({
+				routes: [
+					// 当 router-link 中的 to 属性值 和 path 匹配后,就会展示对应的 component 到  2 处
+					{ path: '/', redirect: '/user' }, //路由重定向
+					{ path: '/user', component: User },
+					{
+						path: '/register',
+						component: Register,
+						redirect: '/register/tab1',
+						children: [
+							/* 	{ path: '/register/tab1', component: Tab1 },
+              { path: '/register/tab2', component: Tab2 } */
+							//这样等价于上面 但不要以 /  开头
+							{ path: 'tab1', component: Tab1 },
+							{ path: 'tab2', component: Tab2 }
+						]
+					}
+				]
+			});
+			const vm = new Vue({
+				el: '#app',
+				// 4.挂载路由实例
+				router
+			});
+		</script>
+	</body>
+</html>

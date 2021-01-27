@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="" id="app">
+			<!-- 解决闪动问题 -->
+			<div v-cloak>{{msg}}</div>
+			<!-- 也可以解决闪动但不解析html标签 -->
+			<div v-text="msg1"></div>
+			<!-- 可解析html标签,但会有安全问题,不要引入第三方的数据   -->
+			<div v-html="msg2"></div>
+			<!-- 跳过,不解析数据 -->
+			<div v-pre>{{msg}}</div>
+			<!-- 只编译一次,不在响应后续的数据变化 优化性能!-->
+			<div v-once>{{msg}}</div>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					msg: 'hello vue',
+					msg1: `<h1>你好</h1>`,
+					msg2: `<img src="xxx" onerror="alert('什么破网站!')"/>`
+				}
+			});
+		</script>
+	</body>
+</html>

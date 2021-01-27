@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<hello-world></hello-world>
+		</div>
+		<script src="js/vue.js"></script>
+		<script>
+			Vue.component('hello-world', {
+				// props: ['title'],
+				props: {
+					// 对象的 key 就代表要接收的值，接收 title 属性，要求是一个 String 类型的
+					// title: String
+					// title: [String, Number]
+					title: {
+						// type: [String, Number], // 通过 type 指定要接收的类型
+						// required: true, // 要求必传
+						// default: 100
+						// 对象或数组默认值必须从一个函数返回
+						default: () => [1, 2]
+					}
+				},
+				template: `<div>{{title}}</div>`
+			});
+			const vm = new Vue({
+				el: '#app',
+				name: 'APP',
+				data: {
+					msg: {
+						name: 'zs'
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

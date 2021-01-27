@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			div {
+				padding: 10px;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" @click="handle1">
+			{{box}}
+			<!-- *事件修饰符 stop 可以阻止冒泡 -->
+			<div class="box1" v-on:click.stop="handle">box1</div>
+			<!--*  @click.prevent.self 默认行为不会被触发(self 可以被省略)
+            @click.self.prevent 默认行为可以被子元素触发 -->
+			<a href="http://www.baidu.com" target="blank" v-on:click.prevent>
+				<button>按钮</button>
+			</a>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					box: 1
+				},
+				methods: {
+					handle() {
+						console.log('box1------');
+					},
+					handle1() {
+						this.box++;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

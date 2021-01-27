@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 65不直观 -->
+			<!-- <input type="text" v-on:keyup.65="handle" v-model="info" /> -->
+			<!-- 写个按键名也可以 a -->
+			<!-- <input type="text" v-on:keyup.a="handle" v-model="info" /> -->
+
+			<input type="text" v-on:keyup.keyupa="handle" v-model="info" />
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			// 1. 规则：自定义按键修饰符名字是自定义的，但是对应的值必须是按键对应 event.keyCode 值
+			// 2. 不支持驼峰的写法，例如 keyupA
+			Vue.config.keyCodes.keyupa = 65;
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					info: ''
+				},
+				methods: {
+					handle(e) {
+						console.log(e.keyCode);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// Fetch API 接口调用
+
+			//get  用 ? 传参 后台用 req.query 获取
+			fetch('http://localhost:3000/books?id=123', {
+				method: 'get'
+			})
+				.then(data => data.text())
+				.then(data => console.log(data));
+			//get 用 / 传参 后台接口加上 /:id  并用 req.params  获取
+			fetch('http://localhost:3000/books/456', {
+				method: 'get'
+			})
+				.then(data => data.text())
+				.then(data => console.log(data));
+
+			//delete 同 get
+			fetch('http://localhost:3000/books/789', {
+				method: 'delete'
+			})
+				.then(data => data.text())
+				.then(data => console.log(data));
+
+			//put 传参  传递key=value 形式的  需要设置 headers
+			fetch('http://localhost:3000/books/2', {
+				method: 'put',
+				body: 'uname=zs&pwd=111',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+				.then(data => data.text())
+				.then(data => console.log(data));
+
+			//post 传参  传递key=value形式的  需要设置 headers
+			fetch('http://localhost:3000/books', {
+				method: 'post',
+				body: 'uname=ls&pwd=222',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+				.then(data => data.text())
+				.then(data => console.log(data));
+
+			//post 传参  传递json形式的
+			/* fetch('http://localhost:3000/books', {
+				method: 'post',
+				body: JSON.stringify({
+					uname: 'ww',
+					psw: '333'
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(res => res.json())
+				.then(data => console.log(data)); */
+
+			//get 获取 json 格式的数据 要使用 .json()z转换格式
+			fetch('http://localhost:3000/json', {
+				method: 'get'
+			})
+				.then(res => res.json())
+				.then(data => console.log(data));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<base-box>
+				<template v-slot:header>
+					<p>头部标题</p>
+				</template>
+				<p>中间标题</p>
+				<template #footer>
+					<p>底部标题</p>
+				</template>
+			</base-box>
+		</div>
+
+		<template id="base-box">
+			<div>
+				<header>
+					<slot name="header"></slot>
+				</header>
+				<main>
+					<slot></slot>
+				</main>
+				<footer>
+					<slot name="footer"></slot>
+				</footer>
+			</div>
+		</template>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			Vue.component('base-box', {
+				template: '#base-box'
+			});
+			const vm = new Vue({
+				el: '#app',
+				name: 'App'
+			});
+		</script>
+	</body>
+</html>

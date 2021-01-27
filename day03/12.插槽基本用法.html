@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- !填坑 -->
+			<alert-box> 我是父组件内容1 </alert-box>
+			<alert-box></alert-box>
+		</div>
+		<script src="js/vue.js"></script>
+		<script>
+			Vue.component('alert-box', {
+				template: `
+          <div>
+            <h1>错误信息</h1>
+            <!--! 挖坑 -->
+            <slot>默认内容</slot>
+          </div> 
+      `
+			});
+			const vm = new Vue({
+				el: '#app'
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<span>职业：</span>
+			<!--
+        1、需要给 select，通过 v-model 双向绑定一个值
+        2、每一个 option，必须要有 value 属性且 value 值不能一样 
+        3、当某一个 option 选中的时候 v-model会将当前的 value 值改变成 data 中的数据
+            occupation 的值就是选中的值，我们只需要实时监控他的值就可以了
+    -->
+			<!-- multiple  多选 -->
+			<select v-model="occupation" multiple>
+				<option value="0">请选择职业...</option>
+				<option value="1">教师</option>
+				<option value="2">软件工程师</option>
+				<option value="3">律师</option>
+			</select>
+			<!-- textarea 是 一个双标签   不需要绑定value 属性的  -->
+			<textarea v-model="desc"></textarea>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					// 默认会让当前的 value 值为 2 和 3 的下拉框选中
+					occupation: ['2', '3'],
+					desc: 'nihao'
+				}
+			});
+		</script>
+	</body>
+</html>

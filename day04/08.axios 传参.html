@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="js/axios.js"></script>
+	</head>
+	<body>
+		<script>
+			// axios 传参
+			// get 传参 ?  或者 params 后台都用 req.query 获取
+			axios.get('http://localhost:3000/axios?id=123').then(res => console.log(res.data));
+
+			axios
+				.get('http://localhost:3000/axios', {
+					params: {
+						id: 222
+					}
+				})
+				.then(res => console.log(res.data));
+			//get 传参 用 /  后台接口用  :id    并req.params 获取
+			axios.get('http://localhost:3000/axios/456').then(res => console.log(res.data));
+
+			//<!--! delete 传参同 get -->
+
+			//post 对象传参  后台会解析为JSON格式的 使用 req.body 获取
+			axios
+				.post('http://localhost:3000/axios', {
+					uname: 'tq',
+					pwd: '789'
+				})
+				.then(res => console.log(res.data));
+
+			//post 传参  key=value字符串形式的 后台会解析为 x-www-form-urlencoded形式的
+			const params = new URLSearchParams();
+			params.append('uname', 'ldh');
+			params.append('pwd', '999');
+			//params=''uname=ldh&pwd=999''
+			axios.post('http://localhost:3000/axios', params).then(res => console.log(res.data));
+
+			//put 传参 同 post  后台使用 req.params(得到 5) 和 req.body 获取(uname,pwd)
+			axios
+				.put('http://localhost:3000/axios/5', {
+					uname: 'zxy',
+					pwd: '888'
+				})
+        .then(res => console.log(res.data));
+        
+		</script>
+	</body>
+</html>

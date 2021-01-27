@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+    <div id="app">
+        <hello-world title="尼古拉斯" name="ifer"></hello-world>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 如果说传递过来的属性没有 props 接收，会作用域组件模板的根节点
+
+        Vue.component('hello-world', {
+            inheritAttrs: false, // 禁用 props 继承，如果说传递过来的属性没有被 props 接收，又不想作用于根节点，可以通过设置 false 达到这一目的
+            // props: ['title'],
+            // v-bind="$attrs"，把所有的 no-props 属性作用于 span 上面
+            // template: `<div><span v-bind="$attrs">{{title}}</span></div>`
+            template: `<div><span v-bind:title="$attrs.title">{{title}}</span></div>`
+        });
+        const vm = new Vue({
+            el: '#app',
+            name: 'App',
+        });
+    </script>
+</body>
+
+</html>
