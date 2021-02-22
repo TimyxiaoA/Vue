@@ -22,7 +22,7 @@
 			<p v-bind:class="{active:bBar}">hello world!</p>
 
 			<!--* 支持数组套对象 或字符串,或表达式-->
-			<p v-bind:class="[{active:bBar},'aaa',true?'bbb':'']">hello world!</p>
+			<p v-bind:class="[{active:bBar},'aaa',3<1?'bbb':'ccc']">hello world!</p>
 			<button v-on:click="handle">change</button>
 		</div>
 		<script src="vue.js"></script>
@@ -34,10 +34,10 @@
 				},
 				methods: {
 					handle() {
-						this.bBar = !this.bBar;
+						this.bBar = !this.bBar
 					}
 				}
-			});
+			})
 		</script>
 	</body>
 </html>

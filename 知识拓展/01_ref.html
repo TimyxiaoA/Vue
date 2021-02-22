@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+    <div id="app">
+        <div ref="testdiv">hello world</div>
+        <button @click="handleClick">点击</button>
+        <hr>
+        <test-com ref="testcom"></test-com>
+        <button @click="handleClick2">点击</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.4.3/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.5.1/dist/vuex.min.js"></script>
+    <script>
+        Vue.component('test-com', {
+            data() {
+                return {
+                    msg: 'test-com组件'
+                }
+            },
+            template: `
+                <div ref="xxx">{{msg}}</div>
+            `,
+            methods: {
+                changeMsg(msg) {
+                    this.msg = msg;
+                }
+            }
+        });
+
+        const vm = new Vue({
+            el: '#app',
+            name: 'App',
+            methods: {
+                handleClick() {
+                    // 作用1：可以获取 DOM 对象
+                    console.log(this.$refs.testdiv.innerHTML);
+                },
+                handleClick2() {
+                    // 作用2：可以获取到组件本身，在父组件中可以用来修改子组件的数据
+                    // console.log(this.$refs.testcom.msg);
+                    this.$refs.testcom.changeMsg(Math.random());
+                    // console.log(this.$refs.testcom.$refs.xxx.innerHTML);
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>
